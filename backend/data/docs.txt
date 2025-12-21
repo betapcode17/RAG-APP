@@ -1,0 +1,23 @@
+Hệ thống RAG (Retrieval-Augmented Generation) là một kỹ thuật kết hợp giữa truy xuất dữ liệu và mô hình ngôn ngữ lớn (LLM).
+
+RAG giúp mô hình AI trả lời chính xác hơn bằng cách sử dụng dữ liệu bên ngoài, thay vì chỉ dựa vào kiến thức đã được huấn luyện sẵn.
+
+Một hệ thống RAG tiêu chuẩn gồm các bước:
+1. Chia nhỏ tài liệu thành các đoạn văn ngắn (chunking).
+2. Chuyển mỗi đoạn văn thành vector embedding.
+3. Lưu các vector vào cơ sở dữ liệu vector (Vector Database).
+4. Khi người dùng đặt câu hỏi, hệ thống sẽ tìm các đoạn văn liên quan nhất.
+5. Các đoạn văn này được đưa vào prompt để LLM tạo câu trả lời.
+
+Ưu điểm của RAG:
+- Giảm hiện tượng AI trả lời sai hoặc bịa thông tin.
+- Dễ cập nhật dữ liệu mà không cần huấn luyện lại mô hình.
+- Phù hợp cho chatbot nội bộ, trợ lý doanh nghiệp, hỏi đáp tài liệu.
+
+Ví dụ ứng dụng của RAG:
+- Chatbot trả lời câu hỏi về tài liệu công ty.
+- Trợ lý học tập dựa trên giáo trình.
+- Hệ thống hỏi đáp pháp luật, y tế, kỹ thuật.
+
+RAG không phải là fine-tuning.
+RAG là cách cung cấp ngữ cảnh động cho mô hình ngôn ngữ khi trả lời câu hỏi.
