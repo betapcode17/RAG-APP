@@ -30,6 +30,8 @@ Backend API (Node.js / Express)
       └─ Generate answer (Gemini 1.5 Pro)
 ```
 
+<img width="1094" height="640" alt="image" src="https://github.com/user-attachments/assets/188b232e-b45c-498f-bebe-d55d6e08e8be" />
+
 ---
 
 ## 🛠 Technologies
