@@ -35,7 +35,7 @@ const groups = [
 ];
 export const SampleQuestions = () => {
   return (
-    <div className="flex flex-col items-center py-10">
+    <div className="flex flex-col items-center py-4">
       <h2 className="text-lg font-semibold">Sample Questions</h2>
       <p className="text-muted-foreground mt-1">
         Choose a question below to start the conversation

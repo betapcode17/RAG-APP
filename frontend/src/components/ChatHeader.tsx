@@ -5,7 +5,7 @@ import { SettingsPanel } from "./ui/SettingsPanel.tsx";
 
 const Header = () => {
   return (
-    <div className="flex justify-between px-6 py-4 border-b">
+    <div className="flex justify-between px-6 py-2 border-b">
       <div className="flex flex-col gap-x-px">
         <h1 className="text-lg font-semibold">RAG Chat Assistant</h1>
         <div className="flex items-center gap-2">
