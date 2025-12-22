@@ -138,7 +138,7 @@ curl -X POST http://localhost:3000/chat \
 ---
 ## DEMO
 1. Home
-2. 
+
 <img width="1916" height="915" alt="image" src="https://github.com/user-attachments/assets/c40e7858-e41f-4c5b-81a1-77769e348f40" />
 
 ---
