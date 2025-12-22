@@ -1,12 +1,8 @@
-import ChatEmpty from "./components/ChatEmpty";
-import Header from "./components/ChatHeader";
-import ChatInput from "./components/ChatInput";
+import { ChatLayout } from "./layout/ChatLayout";
 function App() {
   return (
-    <div className="flex flex-col">
-      <Header></Header>
-      <ChatEmpty></ChatEmpty>
-      <ChatInput></ChatInput>
+    <div className="h-screen w-screen overflow-hidden">
+      <ChatLayout></ChatLayout>;
     </div>
   );
 }

@@ -5,7 +5,7 @@ import { SampleQuestions } from "./SampleQuestions";
 
 const ChatEmpty = () => {
   return (
-    <div className="flex flex-col  items-center py-3">
+    <div className="flex flex-col  items-center py-3 flex-1 overflow-y-auto">
       <Button variant="outline" size="icon" className="rounded-full">
         <MessageCircleMore />
       </Button>

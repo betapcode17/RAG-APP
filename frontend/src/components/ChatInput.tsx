@@ -6,7 +6,7 @@ import { ArrowUpFromLine } from "lucide-react";
 
 const ChatInput = () => {
   return (
-    <div className="flex p-3 border-2 gap-2">
+    <div className="flex p-3 border-2 gap-2 ">
       <Input type="question" placeholder="Enter your question" />
       <Button type="submit" variant="outline">
         <ArrowUpFromLine />
