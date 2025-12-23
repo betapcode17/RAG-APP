@@ -1,7 +1,7 @@
 import { Badge } from "./ui/badge.tsx";
 import React from "react";
 import { Button } from "./ui/button.tsx";
-import { SettingsPanel } from "./ui/SettingsPanel.tsx";
+import { SettingsPanel } from "./SettingsPanel.tsx";
 
 const Header = () => {
   return (

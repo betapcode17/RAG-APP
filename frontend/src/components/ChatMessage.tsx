@@ -2,6 +2,7 @@
 import React from "react";
 import { Button } from "./ui/button";
 import { BotMessageSquare, UserRound } from "lucide-react";
+import { TypingDots } from "./TypingDots.tsx";
 
 const ChatMessage = () => {
   return (
@@ -23,8 +24,6 @@ const ChatMessage = () => {
             <UserRound className="h-4 w-4" />
           </Button>
         </div>
-
-        <p className="text-[11px] text-muted-foreground mt-1">14:02</p>
       </div>
 
       {/* ===== BOT MESSAGE ===== */}
@@ -46,8 +45,36 @@ const ChatMessage = () => {
             </p>
           </div>
         </div>
+      </div>
+      <div className="flex flex-col items-end">
+        <div className="flex flex-row gap-2 items-start">
+          <div className="bg-primary text-primary-foreground rounded-xl px-4 py-3 max-w-md shadow">
+            <p className="text-sm ">Hãy giải thích chi tiết các khái niệm</p>
+          </div>
 
-        <p className="text-[11px] text-muted-foreground mt-1">14:03</p>
+          <Button
+            variant="outline"
+            size="icon"
+            className="rounded-full shrink-0"
+          >
+            <UserRound className="h-4 w-4" />
+          </Button>
+        </div>
+      </div>
+      <div className="flex flex-col items-start">
+        <div className="flex flex-row gap-2 items-start">
+          <Button
+            variant="outline"
+            size="icon"
+            className="rounded-full shrink-0"
+          >
+            <BotMessageSquare className="h-4 w-4" />
+          </Button>
+
+          <div className="bg-muted text-foreground rounded-xl px-4 py-3 max-w-md shadow-sm">
+            <TypingDots></TypingDots>
+          </div>
+        </div>
       </div>
     </div>
   );
