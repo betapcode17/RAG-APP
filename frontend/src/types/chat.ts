@@ -1,16 +1,9 @@
 // chat
-export interface ChatMessage {
-  id: string;
-  content: string;
-  role: "user" | "assistant";
-  timestamp: Date;
-  sources?: Source[];
-}
+export type ChatRole = "user" | "assistant";
 
-export interface Source {
-  ordinal: number;
-  source: string;
-  score: number;
+export interface ChatMessage {
+  role: ChatRole;
+  text: string;
 }
 
 export interface ChatRequest {
