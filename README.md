@@ -141,6 +141,10 @@ curl -X POST http://localhost:3000/chat \
 
 <img width="1916" height="915" alt="image" src="https://github.com/user-attachments/assets/c40e7858-e41f-4c5b-81a1-77769e348f40" />
 
+2. Chat
+   
+<img width="1898" height="899" alt="image" src="https://github.com/user-attachments/assets/c2156257-f0e9-43af-a093-027d7df2ec77" />
+
 ---
 ## 🧠 Why RAG?
 
