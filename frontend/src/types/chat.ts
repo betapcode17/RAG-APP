@@ -2,14 +2,17 @@
 export type ChatRole = "user" | "assistant";
 
 export interface ChatMessage {
-  role: ChatRole;
-  text: string;
+  id: string;
+  role: "user" | "assistant";
+  content: string;
+  isTyping?: boolean;
+  createdAt?: number;
 }
 
 export interface ChatRequest {
-  message: string;
+  question: string;
 }
 
 export interface ChatResponse {
-  reply: string;
+  answer: string;
 }
