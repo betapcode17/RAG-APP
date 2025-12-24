@@ -142,9 +142,11 @@ curl -X POST http://localhost:3000/chat \
 <img width="1916" height="915" alt="image" src="https://github.com/user-attachments/assets/c40e7858-e41f-4c5b-81a1-77769e348f40" />
 
 2. Chat
-   
-<img width="1894" height="905" alt="image" src="https://github.com/user-attachments/assets/17bf9e2c-1cec-423e-80c0-00d43d204179" />
+2.1 LightMode
+<img width="1905" height="910" alt="image" src="https://github.com/user-attachments/assets/662b2055-91cf-4e24-9c9a-488b149b48b8" />
 
+2.2 DarkMode
+<img width="1896" height="897" alt="image" src="https://github.com/user-attachments/assets/24892d39-1b76-4fd5-9e3d-65873b25498b" />
 
 ---
 ## 🧠 Why RAG?
