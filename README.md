@@ -142,6 +142,7 @@ curl -X POST http://localhost:3000/chat \
 <img width="1916" height="915" alt="image" src="https://github.com/user-attachments/assets/c40e7858-e41f-4c5b-81a1-77769e348f40" />
 
 2. Chat
+   
 2.1 LightMode
 <img width="1905" height="910" alt="image" src="https://github.com/user-attachments/assets/662b2055-91cf-4e24-9c9a-488b149b48b8" />
 
