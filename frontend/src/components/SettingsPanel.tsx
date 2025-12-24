@@ -7,6 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import ThemeToggle from "./ui/ThemeToggle";
 
 export function SettingsPanel() {
   return (
@@ -17,7 +18,9 @@ export function SettingsPanel() {
 
       <DropdownMenuContent className="w-40" align="end">
         <DropdownMenuGroup>
-          <DropdownMenuItem>darkMode</DropdownMenuItem>
+          <DropdownMenuItem>
+            <ThemeToggle></ThemeToggle>
+          </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>

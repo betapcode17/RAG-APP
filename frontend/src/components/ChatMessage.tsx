@@ -26,11 +26,7 @@ const ChatMessage = ({ message }: Props) => {
         {/* ===== MESSAGE BUBBLE ===== */}
         <div
           className={`rounded-xl px-4 py-3 max-w-md shadow
-            ${
-              isUser
-                ? "bg-primary text-primary-foreground"
-                : "bg-muted text-foreground"
-            }`}
+            ${"bg-muted text-foreground"}`}
         >
           <p className="text-sm leading-relaxed">{message.content}</p>
         </div>

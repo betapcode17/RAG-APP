@@ -1,8 +1,8 @@
 import { Badge } from "./ui/badge.tsx";
 import React from "react";
 import { Button } from "./ui/button.tsx";
-import { SettingsPanel } from "./SettingsPanel.tsx";
 import { useChatStore } from "../store/useChatStore.ts";
+import ThemeToggle from "./ui/ThemeToggle.tsx";
 
 const Header = () => {
   const isCleanChat = useChatStore((s) => s.clearChat);
@@ -20,7 +20,7 @@ const Header = () => {
         </div>
       </div>
       <div className="flex flex-row items-center gap-3">
-        <SettingsPanel />
+        <ThemeToggle></ThemeToggle>
         <Button variant="outline" onClick={isCleanChat}>
           Clear Chat
         </Button>
