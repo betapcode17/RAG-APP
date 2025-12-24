@@ -1,4 +1,4 @@
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { MessageCircleMore } from "lucide-react";
 import { SampleQuestions } from "./SampleQuestions";
 

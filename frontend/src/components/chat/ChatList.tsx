@@ -1,9 +1,9 @@
 // ChatList
 import { BotMessageSquare } from "lucide-react";
-import { useChatStore } from "../store/useChatStore";
+import { useChatStore } from "../../store/useChatStore";
 import ChatMessage from "./ChatMessage";
-import { TypingDots } from "./TypingDots";
-import { Button } from "./ui/button";
+import { TypingDots } from "../ui/TypingDots";
+import { Button } from "../ui/button";
 
 const ChatList = () => {
   const { message, isTyping } = useChatStore();

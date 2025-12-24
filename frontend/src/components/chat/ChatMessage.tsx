@@ -1,6 +1,6 @@
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { BotMessageSquare, UserRound } from "lucide-react";
-import type { ChatMessage as Msg } from "../types/chat";
+import type { ChatMessage as Msg } from "../../types/chat";
 
 interface Props {
   message: Msg;

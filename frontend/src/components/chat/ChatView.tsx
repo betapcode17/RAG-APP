@@ -1,4 +1,4 @@
-import { useChatStore } from "../store/useChatStore";
+import { useChatStore } from "../../store/useChatStore";
 import ChatEmpty from "./ChatEmpty";
 
 import ChatList from "./ChatList";

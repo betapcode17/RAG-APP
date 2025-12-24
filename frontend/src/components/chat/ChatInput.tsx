@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
 import { ArrowUpFromLine } from "lucide-react";
-import { useChatStore } from "../store/useChatStore";
-import { sendChat } from "../service/chatApi";
+import { useChatStore } from "../../store/useChatStore";
+import { sendChat } from "../../service/chatApi";
 
 const ChatInput = () => {
   const [value, setValue] = useState("");

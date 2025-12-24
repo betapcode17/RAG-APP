@@ -1,7 +1,7 @@
-import { SampleQuestions as sampleData } from "../data/SampleQuestions";
-import { groupByCategory } from "../utils/groupSampleQuestions";
-import { useChatStore } from "../store/useChatStore";
-import { sendChat } from "../service/chatApi";
+import { SampleQuestions as sampleData } from "../../data/SampleQuestions";
+import { groupByCategory } from "../../utils/groupSampleQuestions";
+import { useChatStore } from "../../store/useChatStore";
+import { sendChat } from "../../service/chatApi";
 
 export const SampleQuestions = () => {
   const groupedData = groupByCategory(sampleData);
