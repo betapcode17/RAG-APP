@@ -2,8 +2,10 @@ import { Badge } from "./ui/badge.tsx";
 import React from "react";
 import { Button } from "./ui/button.tsx";
 import { SettingsPanel } from "./SettingsPanel.tsx";
+import { useChatStore } from "../store/useChatStore.ts";
 
 const Header = () => {
+  const isCleanChat = useChatStore((s) => s.clearChat);
   return (
     <div className="flex justify-between px-6 py-2 border-b">
       <div className="flex flex-col gap-x-px">
@@ -19,7 +21,9 @@ const Header = () => {
       </div>
       <div className="flex flex-row items-center gap-3">
         <SettingsPanel />
-        <Button variant="outline">Clear Chat</Button>
+        <Button variant="outline" onClick={isCleanChat}>
+          Clear Chat
+        </Button>
       </div>
     </div>
   );

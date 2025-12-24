@@ -1,6 +1,5 @@
 import { Button } from "./ui/button";
 import { BotMessageSquare, UserRound } from "lucide-react";
-import { TypingDots } from "./TypingDots";
 import type { ChatMessage as Msg } from "../types/chat";
 
 interface Props {
@@ -33,11 +32,7 @@ const ChatMessage = ({ message }: Props) => {
                 : "bg-muted text-foreground"
             }`}
         >
-          {message.isTyping ? (
-            <TypingDots />
-          ) : (
-            <p className="text-sm leading-relaxed">{message.content}</p>
-          )}
+          <p className="text-sm leading-relaxed">{message.content}</p>
         </div>
 
         {/* ===== USER AVATAR ===== */}

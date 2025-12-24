@@ -1,9 +1,29 @@
-import React from "react";
 import { SampleQuestions as sampleData } from "../data/SampleQuestions";
 import { groupByCategory } from "../utils/groupSampleQuestions";
+import { useChatStore } from "../store/useChatStore";
+import { sendChat } from "../service/chatApi";
 
 export const SampleQuestions = () => {
   const groupedData = groupByCategory(sampleData);
+  const addUserMessage = useChatStore((s) => s.addUserMessage);
+  const addAssistantMessage = useChatStore((s) => s.addAssistantMessage);
+  const setTyping = useChatStore((s) => s.setTyping);
+  const isTyping = useChatStore((s) => s.isTyping);
+  const handleSend = async (question: string) => {
+    if (!question.trim() || isTyping) return;
+
+    addUserMessage(question);
+    setTyping(true);
+    try {
+      const res = await sendChat(question);
+      addAssistantMessage(res.answer);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (err) {
+      addAssistantMessage("❌ Server error, please try again.");
+    } finally {
+      setTyping(false);
+    }
+  };
 
   return (
     <div className="flex flex-col items-center py-4">
@@ -24,6 +44,7 @@ export const SampleQuestions = () => {
               {items.map((item) => (
                 <div
                   key={item.question}
+                  onClick={() => handleSend(item.question)}
                   className="
                     rounded-lg border p-3 cursor-pointer
                     transition-all duration-200
