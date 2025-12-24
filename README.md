@@ -139,15 +139,17 @@ curl -X POST http://localhost:3000/chat \
 ## DEMO
 1. Home
 
-<img width="1916" height="915" alt="image" src="https://github.com/user-attachments/assets/c40e7858-e41f-4c5b-81a1-77769e348f40" />
+LightMode
 
-2. Chat
-   
-2.1 LightMode
+<img width="1883" height="902" alt="image" src="https://github.com/user-attachments/assets/dfb10ecd-de27-4e3c-aad6-a33c89195a68" />
+
+DarkMode
+
+<img width="1882" height="901" alt="image" src="https://github.com/user-attachments/assets/e6212b3b-88b5-4a19-a41b-957b7e8bfbe3" />
+
+3. Chat
+
 <img width="1905" height="910" alt="image" src="https://github.com/user-attachments/assets/662b2055-91cf-4e24-9c9a-488b149b48b8" />
-
-2.2 DarkMode
-<img width="1896" height="897" alt="image" src="https://github.com/user-attachments/assets/24892d39-1b76-4fd5-9e3d-65873b25498b" />
 
 ---
 ## 🧠 Why RAG?
