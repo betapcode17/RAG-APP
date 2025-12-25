@@ -4,34 +4,51 @@ import {
   CardAction,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "../../components/ui/card";
 import { X } from "lucide-react";
 import { UploadDocumentStepTabs } from "./uploadDocumentStepTabs";
+
 const DocumentUpload = () => {
   return (
-    <div>
-      <Card>
-        <CardHeader>
-          <CardTitle>
-            <h1 className="text-lg font-bold">Add Document</h1>
-          </CardTitle>
-          <CardDescription>
-            Upload a document to your knowledge base. Support formats: PDF,
-            DOCX, and Text files.
-          </CardDescription>
+    <div className="flex items-center justify-center min-h-screen bg-background">
+      <Card
+        className="
+          w-full 
+          max-w-4xl 
+          max-h-[85vh]
+          flex 
+          flex-col
+        "
+      >
+        {/* ===== HEADER ===== */}
+        <CardHeader className="flex flex-row items-start justify-between gap-4">
+          <div>
+            <CardTitle>
+              <h1 className="text-lg font-bold">Add Document</h1>
+            </CardTitle>
+            <CardDescription>
+              Upload a document to your knowledge base. Support formats: PDF,
+              DOCX, and Text files.
+            </CardDescription>
+          </div>
+
           <CardAction>
-            <X className="h-4 w-4" />
+            <X className="h-4 w-4 cursor-pointer text-muted-foreground hover:text-foreground" />
           </CardAction>
         </CardHeader>
-        <CardContent className="w-full">
-          <UploadDocumentStepTabs></UploadDocumentStepTabs>
+
+        {/* ===== CONTENT (SCROLL) ===== */}
+        <CardContent
+          className="
+            flex-1 
+            overflow-y-auto 
+            w-full
+          "
+        >
+          <UploadDocumentStepTabs />
         </CardContent>
-        <CardFooter>
-          <p>Card Footer</p>
-        </CardFooter>
       </Card>
     </div>
   );
