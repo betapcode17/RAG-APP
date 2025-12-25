@@ -151,6 +151,10 @@ DarkMode
 
 <img width="1905" height="910" alt="image" src="https://github.com/user-attachments/assets/662b2055-91cf-4e24-9c9a-488b149b48b8" />
 
+4. Management Document
+   
+<img width="1886" height="613" alt="image" src="https://github.com/user-attachments/assets/e4c68ea1-5502-4305-b301-f5f7b9a077b1" />
+
 ---
 ## 🧠 Why RAG?
 
