@@ -155,6 +155,9 @@ DarkMode
    
 <img width="1886" height="613" alt="image" src="https://github.com/user-attachments/assets/e4c68ea1-5502-4305-b301-f5f7b9a077b1" />
 
+5.
+<img width="1888" height="840" alt="image" src="https://github.com/user-attachments/assets/9337f3e8-163f-4a22-ae2b-4890548d48c3" />
+
 ---
 ## 🧠 Why RAG?
 
