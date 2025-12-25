@@ -1,10 +1,10 @@
 import { SidebarInset, SidebarProvider } from "../components/ui/sidebar";
 import AppSidebar from "../components/AppSidebar";
-import { DocumentsList } from "../components/knowledgeBase/document-list";
+import { DocumentsList } from "../components/knowledgeBase/documentList";
 import ChatHeader from "../components/chat/ChatHeader";
 import { Button } from "../components/ui/button";
 import { Plus } from "lucide-react";
-
+import DocumentUpload from "../components/knowledgeBase/documentUpload";
 const KnowledgeBaseLayout = () => {
   return (
     <SidebarProvider>
@@ -21,6 +21,7 @@ const KnowledgeBaseLayout = () => {
             </Button>
           </div>
           <DocumentsList></DocumentsList>
+          <DocumentUpload></DocumentUpload>
         </SidebarInset>
       </div>
     </SidebarProvider>
