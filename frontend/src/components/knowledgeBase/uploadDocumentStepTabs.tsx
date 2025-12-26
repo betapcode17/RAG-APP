@@ -18,7 +18,6 @@ export function UploadDocumentStepTabs() {
   return (
     <div className="w-full max-w-3xl mx-auto">
       <Tabs defaultValue="upload" className="w-full">
-        {/* ===== STEP HEADER ===== */}
         <TabsList className="grid grid-cols-3 bg-transparent mb-15 place-items-center">
           {[
             { value: "upload", icon: Upload, label: "Upload", step: 1 },
@@ -49,7 +48,6 @@ export function UploadDocumentStepTabs() {
           ))}
         </TabsList>
 
-        {/* ===== CONTENT ===== */}
         <TabsContent value="upload">
           <UploadForm />
         </TabsContent>

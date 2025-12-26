@@ -37,35 +37,11 @@ import {
   TableRow,
 } from "../ui/table";
 
-import type { Documents } from "../../types/documents";
-
-/* ===================== MOCK DATA ===================== */
-const data: Documents[] = [
-  {
-    id: "doc-001",
-    name: "RAG Knowledge Base",
-    size: "12MB",
-    status: "completed",
-    createdAt: new Date(),
-  },
-  {
-    id: "doc-002",
-    name: "Vector Database",
-    size: "30MB",
-    status: "processing",
-    createdAt: new Date(),
-  },
-  {
-    id: "doc-003",
-    name: "AI Manual",
-    size: "8MB",
-    status: "failed",
-    createdAt: new Date(),
-  },
-];
+import { Documents } from "../../data/Document";
+import type { Document } from "../../types/documents";
 
 // eslint-disable-next-line react-refresh/only-export-components
-export const columns: ColumnDef<Documents>[] = [
+export const columns: ColumnDef<Document>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -172,7 +148,7 @@ export const DocumentsList = () => {
   const [rowSelection, setRowSelection] = React.useState({});
 
   const table = useReactTable({
-    data,
+    data: Documents,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,

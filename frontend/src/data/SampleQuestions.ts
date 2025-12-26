@@ -1,8 +1,4 @@
-export interface SampleQuestion {
-  category: string;
-  question: string;
-  description: string;
-}
+import type { SampleQuestion } from "../types/SampleQuestion";
 
 export const SampleQuestions: SampleQuestion[] = [
   {

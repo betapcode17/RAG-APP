@@ -1,5 +1,5 @@
 // types/documents.ts
-export interface Documents {
+export interface Document {
   id: string;
   name: string;
   size: string;
