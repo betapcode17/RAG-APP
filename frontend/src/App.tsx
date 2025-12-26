@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 // import { ChatLayout } from "./layout/ChatLayout";
 import { useThemeStore } from "./store/themeStore";
-import KnowledgeBaseLayout from "./layout/KnowledgeBaseLayout";
+import DashboardLayout from "./layout/DashboardLayout";
+// import KnowledgeBaseLayout from "./layout/KnowledgeBaseLayout";
 function App() {
   const theme = useThemeStore((s) => s.theme);
 
@@ -11,7 +12,8 @@ function App() {
   return (
     <div className="h-screen w-screen overflow-hidden">
       {/* <ChatLayout></ChatLayout>; */}
-      <KnowledgeBaseLayout></KnowledgeBaseLayout>
+      {/* <KnowledgeBaseLayout></KnowledgeBaseLayout> */}
+      <DashboardLayout></DashboardLayout>
     </div>
   );
 }
