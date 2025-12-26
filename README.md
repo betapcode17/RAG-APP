@@ -158,6 +158,11 @@ DarkMode
 5.
 <img width="1888" height="840" alt="image" src="https://github.com/user-attachments/assets/9337f3e8-163f-4a22-ae2b-4890548d48c3" />
 
+6. Dashboard
+
+<img width="1895" height="896" alt="image" src="https://github.com/user-attachments/assets/683715d6-c761-4a4c-a5e1-d24e6b2d08cc" />    <img width="1872" height="894" alt="image" src="https://github.com/user-attachments/assets/c409ff63-d9f0-4612-858e-60644547f0ae" />
+
+
 ---
 ## 🧠 Why RAG?
 
