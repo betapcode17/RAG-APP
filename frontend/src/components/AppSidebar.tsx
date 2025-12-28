@@ -13,6 +13,7 @@ import {
 } from "../components/ui/sidebar";
 
 import { sidebarMenu } from "../config/sidebar-menu";
+import { NavLink } from "react-router-dom";
 
 export default function AppSidebar() {
   const location = useLocation();
@@ -36,10 +37,10 @@ export default function AppSidebar() {
                       isActive={isActive}
                       tooltip={item.title}
                     >
-                      <a href={item.href}>
+                      <NavLink to={item.href}>
                         <Icon />
                         <span>{item.title}</span>
-                      </a>
+                      </NavLink>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 );

@@ -12,7 +12,7 @@ export const sidebarMenu = [
       {
         title: "Dashboard",
         icon: LayoutDashboard,
-        href: "/",
+        href: "/dashboard",
       },
       {
         title: "Knowledge Base",
