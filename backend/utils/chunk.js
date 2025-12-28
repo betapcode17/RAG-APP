@@ -1,8 +1,0 @@
-// LLM không đọc được file dài, phải chia nhỏ
-export function chunkText(text, size = 500) {
-  const chunks = [];
-  for (let i = 0; i < text.length; i += size) {
-    chunks.push(text.slice(i, i + size));
-  }
-  return chunks.filter((chunk) => chunk.trim().length > 0);
-}
