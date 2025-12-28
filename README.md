@@ -9,8 +9,8 @@
 
 Retrieval-Augmented Generation (RAG) combines:
 
-* **Information Retrieval** (searching relevant documents)
-* **Large Language Models (LLMs)** (generating answers)
+- **Information Retrieval** (searching relevant documents)
+- **Large Language Models (LLMs)** (generating answers)
 
 This project demonstrates how to build a **document-based chatbot** using **Google Gemini** without fine-tuning the model.
 
@@ -38,27 +38,31 @@ Backend API (Node.js / Express)
 
 ### Backend
 
-* Node.js
-* Express.js
-* Google Gemini REST API (v1)
-* dotenv
-* node-fetch
+- Python 3.11+
+- FastAPI
+- Uvicorn (ASGI server)
+- Google Gemini SDK (google-generativeai)
+- python-dotenv
+- SQLAlchemy (optional for vector store)
 
 ### Frontend
 
-* ReactJS
-* Fetch API
+| Technology       | Purpose                                                                                         |
+| ---------------- | ----------------------------------------------------------------------------------------------- |
+| **ReactJS**      | Core UI framework for dynamic, component-based interfaces                                       |
+| **Fetch API**    | Native HTTP client for API requests to backend                                                  |
+| **Zustand**      | Lightweight state management for global app state (e.g., chat history, user sessions)           |
+| **Shadcn/UI**    | Accessible, customizable UI components built on Radix UI and Tailwind CSS for rapid prototyping |
+| **Tailwind CSS** | Utility-first CSS framework for responsive, modern styling                                      |
 
 ### AI Models
 
-| Purpose                  | Model                   |
-| ------------------------ | ----------------------- |
-| Chat / Answer generation | `gemini-2.5-flash` |
-| Embeddings               | `text-embedding-004`    |
+| Purpose                  | Model                |
+| ------------------------ | -------------------- |
+| Chat / Answer generation | `gemini-2.5-flash`   |
+| Embeddings               | `text-embedding-004` |
 
 ---
-
-
 
 ## 📄 Example `docs.txt`
 
@@ -125,9 +129,9 @@ http://localhost:3000
 
 You can test the API using:
 
-* Postman
-* Thunder Client
-* curl
+- Postman
+- Thunder Client
+- curl
 
 ```bash
 curl -X POST http://localhost:3000/chat \
@@ -136,7 +140,9 @@ curl -X POST http://localhost:3000/chat \
 ```
 
 ---
+
 ## DEMO
+
 1. Home
 
 LightMode
@@ -152,18 +158,17 @@ DarkMode
 <img width="1905" height="910" alt="image" src="https://github.com/user-attachments/assets/662b2055-91cf-4e24-9c9a-488b149b48b8" />
 
 4. Management Document
-   
+
 <img width="1886" height="613" alt="image" src="https://github.com/user-attachments/assets/e4c68ea1-5502-4305-b301-f5f7b9a077b1" />
 
-5.
-<img width="1888" height="840" alt="image" src="https://github.com/user-attachments/assets/9337f3e8-163f-4a22-ae2b-4890548d48c3" />
+5. <img width="1888" height="840" alt="image" src="https://github.com/user-attachments/assets/9337f3e8-163f-4a22-ae2b-4890548d48c3" />
 
 6. Dashboard
 
-<img width="1895" height="896" alt="image" src="https://github.com/user-attachments/assets/683715d6-c761-4a4c-a5e1-d24e6b2d08cc" />    <img width="1872" height="894" alt="image" src="https://github.com/user-attachments/assets/c409ff63-d9f0-4612-858e-60644547f0ae" />
-
+<img width="1895" height="896" alt="image" src="https://github.com/user-attachments/assets/683715d6-c761-4a4c-a5e1-d24e6b2d08cc" /> <img width="1872" height="894" alt="image" src="https://github.com/user-attachments/assets/c409ff63-d9f0-4612-858e-60644547f0ae" />
 
 ---
+
 ## 🧠 Why RAG?
 
 ✅ Reduces hallucinations
@@ -175,32 +180,32 @@ DarkMode
 
 ## ⚠️ Important Notes
 
-* ❌ Do NOT use `@google/generative-ai` SDK (outdated, v1beta issues)
-* ✅ Use **Google Gemini REST API v1**
-* ✅ Always verify available models using `ListModels`
+- ❌ Do NOT use `@google/generative-ai` SDK (outdated, v1beta issues)
+- ✅ Use **Google Gemini REST API v1**
+- ✅ Always verify available models using `ListModels`
 
 ---
 
 ## 📌 Future Improvements
 
-* PDF / DOCX upload support
-* Persistent vector database (LanceDB / Chroma)
-* Streaming responses
-* Authentication & user sessions
-* Improved chatbot UI
+- PDF / DOCX upload support
+- Persistent vector database (LanceDB / Chroma)
+- Streaming responses
+- Authentication & user sessions
+- Improved chatbot UI
 
 ---
 
 ## 👨‍💻 Author
 
-* **Quốc Đạt**
-* Project for learning and research purposes
+- **Quốc Đạt**
+- Project for learning and research purposes
 
 ---
 
 If you want, I can also:
 
-* ✨ Adapt this README for **academic reports**
-* 📖 Add a **theory section about RAG**
-* 📊 Create **architecture diagrams**
-* 🌐 Provide a **Vietnamese–English bilingual version**
+- ✨ Adapt this README for **academic reports**
+- 📖 Add a **theory section about RAG**
+- 📊 Create **architecture diagrams**
+- 🌐 Provide a **Vietnamese–English bilingual version**
