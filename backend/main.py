@@ -7,7 +7,7 @@ from rag.ingest import ingest
 from rag.query import retrieve_context
 from llm.gemini import ask_gemini
 from rag.prompt import build_prompt
-
+from api.api import api_router
 app = FastAPI()
 
 
@@ -20,33 +20,37 @@ app.add_middleware(
 )
 
 
-class ChatRequest(BaseModel):
-    question: str
+# class ChatRequest(BaseModel):
+#     question: str
 
 
-@app.on_event("startup")
-async def startup_event():
-    await ingest()
+# @app.on_event("startup")
+# async def startup_event():
+#     await ingest()
 
-@app.post("/chat")
-async def chat(request: ChatRequest):
-    try:
-        question = request.question
-        if not question:
-            raise HTTPException(status_code=400, detail="Cần cung cấp question")
+# @app.post("/chat")
+# async def chat(request: ChatRequest):
+#     try:
+#         question = request.question
+#         if not question:
+#             raise HTTPException(status_code=400, detail="Cần cung cấp question")
 
-        context = await retrieve_context(question)
+#         context = await retrieve_context(question)
 
-        if not context:
-            return {"answer": "Không tìm thấy thông tin liên quan trong tài liệu."}
+#         if not context:
+#             return {"answer": "Không tìm thấy thông tin liên quan trong tài liệu."}
 
-        prompt = build_prompt(context, question)
-        answer = await ask_gemini(prompt)
+#         prompt = build_prompt(context, question)
+#         answer = await ask_gemini(prompt)
 
-        return {"answer": answer}
-    except Exception as error:
-        print(f"Lỗi /chat: {error}")
-        raise HTTPException(status_code=500, detail="Lỗi server")
+#         return {"answer": answer}
+#     except Exception as error:
+#         print(f"Lỗi /chat: {error}")
+#         raise HTTPException(status_code=500, detail="Lỗi server")
+
+
+app.include_router(api_router)
+
 
 if __name__ == "__main__":
     import uvicorn
