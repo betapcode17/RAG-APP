@@ -1,27 +1,30 @@
-# chat
-from pydantic import BaseModel
-from typing import List, Optional
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
+from sqlalchemy.orm import relationship
 from datetime import datetime
-from message import MessageResponse
+
+from core.database import Base
 
 
+class Chat(Base):
+    __tablename__ = "chats"
 
-class ChatBase(BaseModel) : 
-    title : str
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    title = Column(String(255), nullable=False)
 
-class ChatCreate(ChatBase) :
-    knowledge_base_ids : List[int] = None
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow)
 
-class ChatUpdate(ChatBase) :
-    knowledge_base_ids : Optional[List[int]] = None
+    user = relationship("User", back_populates="chats")
+    messages = relationship(
+        "Message",
+        back_populates="chat",
+        cascade="all, delete",
+        order_by="Message.created_at"
+    )
 
-class ChatResponse(ChatBase) :
-    id : int
-    user_id : int
-    create_at : datetime
-    update_at : datetime
-    message : List[MessageResponse] = []
-    knowledge_base_ids : List[int] = []
-
-    class config : 
-        from_attributes = True
+    knowledge_bases = relationship(
+        "KnowledgeBase",
+        secondary="chat_knowledge_bases",
+        back_populates="chats"
+    )

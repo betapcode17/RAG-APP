@@ -1,20 +1,20 @@
-
-from typing import Optional, List
+from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey
+from sqlalchemy.orm import relationship
 from datetime import datetime
-from pydantic import BaseModel
 
-class MessageBase(BaseModel):
-    content: str
-    role : str
+from core.database import Base
 
-class MessageCreate(MessageBase):
-    chat_id : int
 
-class MessageResponse(MessageBase):
-    id : int
-    chat_id : int
-    create_at: datetime
-    update_at : datetime
+class Message(Base):
+    __tablename__ = "messages"
 
-    class config : 
-        from_attributes = True
+    id = Column(Integer, primary_key=True)
+    chat_id = Column(Integer, ForeignKey("chats.id"), nullable=False)
+
+    role = Column(String(20), nullable=False)
+    content = Column(Text, nullable=False)
+
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow)
+
+    chat = relationship("Chat", back_populates="messages")
