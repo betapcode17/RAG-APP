@@ -30,6 +30,25 @@ Backend API (Node.js / Express)
       └─ Generate answer (Gemini 1.5 Pro)
 ```
 
+```
+User gửi câu hỏi
+   ↓
+Lưu message (role=user)
+   ↓
+Retrieve context từ KB của chat
+   ↓
+Build prompt
+   ↓
+Gọi LLM (Gemini)
+   ↓
+Lưu message (role=assistant)
+   ↓
+Trả answer
+```
+
+
+
+
 <img width="1094" height="640" alt="image" src="https://github.com/user-attachments/assets/188b232e-b45c-498f-bebe-d55d6e08e8be" />
 
 ---

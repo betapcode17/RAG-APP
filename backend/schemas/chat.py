@@ -25,3 +25,7 @@ class ChatResponse(ChatBase) :
 
     class config : 
         from_attributes = True
+
+class ChatAskRequest(BaseModel):
+    question: str
+    knowledge_base_id: Optional[int] = None

@@ -10,7 +10,7 @@ load_dotenv()
 
 gemini_api_key = os.getenv("GEMINI_API_KEY")
 if not gemini_api_key:
-    raise ValueError("❌ Thiếu GEMINI_API_KEY trong file .env!")
+    raise ValueError(" Thiếu GEMINI_API_KEY trong file .env!")
 
 
 genai.configure(api_key=gemini_api_key)
@@ -32,5 +32,5 @@ async def embed(text):
         )
         return result['embedding'] 
     except Exception as e:
-        print(f"❌ Lỗi embedding: {e}")
+        print(f" Lỗi embedding: {e}")
         raise ValueError(f"Không thể embed text: {text[:50]}...")  

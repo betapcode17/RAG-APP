@@ -31,9 +31,9 @@ async def ingest():
             try:
                 embedding = await embed(chunk)
                 embeddings.append(embedding)
-                print(f"✅ Embed chunk {i+1}/{len(chunks)}")
+                print(f" Embed chunk {i+1}/{len(chunks)}")
             except Exception as e:
-                print(f"❌ Lỗi embed chunk {i+1}: {e}")
+                print(f" Lỗi embed chunk {i+1}: {e}")
                 raise  #
 
        
@@ -45,7 +45,7 @@ async def ingest():
         )
 
         count = collection.count()
-        print(f"✅ Ingest hoàn tất: {count} chunks vào ChromaDB")
+        print(f" Ingest hoàn tất: {count} chunks vào ChromaDB")
     except Exception as error:
-        print(f"❌ Lỗi ingest: {error}")
+        print(f" Lỗi ingest: {error}")
         raise 
