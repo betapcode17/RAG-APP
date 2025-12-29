@@ -1,6 +1,6 @@
-# 📚 RAG Application with Node.js & Google Gemini
+# 📚 RAG Application with FastAPI & Google Gemini
 
-> A **Retrieval-Augmented Generation (RAG)** application built with **Node.js backend**, **Google Gemini API**, and **ReactJS frontend**.
+> A **Retrieval-Augmented Generation (RAG)** application built with **FastAPI backend**, **Google Gemini API**, and **ReactJS frontend**.
 > The system answers questions **based only on provided documents**, reducing hallucinations.
 
 ---
@@ -22,7 +22,7 @@ This project demonstrates how to build a **document-based chatbot** using **Goog
 User (ReactJS)
       │
       ▼
-Backend API (Node.js / Express)
+Backend API (FastAPI)
       │
       ├─ Load & split documents (docs.txt)
       ├─ Generate embeddings (Gemini Embedding API)
