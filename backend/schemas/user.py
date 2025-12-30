@@ -2,22 +2,19 @@ from pydantic import BaseModel, EmailStr
 from typing import Optional
 from datetime import datetime
 
-class UserBase(BaseModel):
+class UserCreate(BaseModel):
+    email: EmailStr
+    username: str
+    password: str  # Raw password, hash in router
+
+class UserResponse(BaseModel):
+    id: int
     email: EmailStr
     username: str
     is_active: bool = True
     is_superuser: bool = False
-
-class UserCreate(UserBase):
-    password: str
-
-class UserUpdate(UserBase):
-    password: Optional[str] = None
-
-class UserResponse(UserBase):
-    id: int
     created_at: datetime
-    updated_at: datetime
+    updated_at: Optional[datetime] = None
 
     class Config:
-        from_attributes = True 
+        from_attributes = True

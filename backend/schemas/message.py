@@ -1,20 +1,18 @@
-
-from typing import Optional, List
-from datetime import datetime
+from typing import Optional
 from pydantic import BaseModel
+from datetime import datetime
 
-class MessageBase(BaseModel):
+class MessageCreate(BaseModel):
+    role: str
     content: str
-    role : str
 
-class MessageCreate(MessageBase):
-    chat_id : int
+class MessageResponse(BaseModel):
+    id: int
+    chat_id: int
+    role: str
+    content: str
+    created_at: datetime
+    updated_at: Optional[datetime] = None
 
-class MessageResponse(MessageBase):
-    id : int
-    chat_id : int
-    create_at: datetime
-    update_at : datetime
-
-    class config : 
+    class Config:
         from_attributes = True

@@ -3,8 +3,7 @@ from schemas.rag import PreviewRequest
 
 router = APIRouter(prefix="/rag", tags=["RAG"])
 
-
-@router.post("/preview")
+@router.post("/preview", response_model=dict)  
 def preview_chunks(payload: PreviewRequest):
     return {
         "document_ids": payload.document_ids,

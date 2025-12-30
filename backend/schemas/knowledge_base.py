@@ -1,27 +1,19 @@
+# backend/schemas/knowledge_base.py
 from pydantic import BaseModel
-from typing import Optional, List
+from typing import Optional
 from datetime import datetime
 
-
-class KnowledgeBaseBase(BaseModel):
+class KnowledgeBaseCreate(BaseModel):
     name: str
     description: Optional[str] = None
 
-
-class KnowledgeBaseCreate(KnowledgeBaseBase):
-    pass
-
-
-class KnowledgeBaseUpdate(BaseModel):
-    name: Optional[str] = None
-    description: Optional[str] = None
-
-
-class KnowledgeBaseResponse(KnowledgeBaseBase):
+class KnowledgeBaseResponse(BaseModel):
     id: int
+    name: str
+    description: Optional[str] = None
     user_id: int
     created_at: datetime
-    updated_at: datetime
+    updated_at: Optional[datetime] = None
 
     class Config:
-        from_attributes = True
+        from_attributes = True  

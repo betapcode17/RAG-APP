@@ -1,9 +1,9 @@
-# document upload base
-from typing import Optional, List
-from datetime import datetime
 from pydantic import BaseModel
+from typing import Optional
+from datetime import datetime
 
-class DocumentUploadBase(BaseModel):
+class DocumentUploadCreate(BaseModel):
+    knowledge_base_id: int
     file_name: str
     file_hash: str
     file_size: int
@@ -12,12 +12,17 @@ class DocumentUploadBase(BaseModel):
     status: str = "pending"
     error_message: Optional[str] = None
 
-class DocumentUploadCreate(DocumentUploadBase):
-    knowledge_base_id: int
-
-class DocumentUploadResponse(DocumentUploadBase):
+class DocumentUploadResponse(BaseModel):
     id: int
+    knowledge_base_id: int
+    file_name: str
+    file_hash: str
+    file_size: int
+    content_type: str
+    temp_path: Optional[str] = None
+    status: str
+    error_message: Optional[str] = None
     created_at: datetime
-    
+
     class Config:
         from_attributes = True

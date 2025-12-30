@@ -1,19 +1,17 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-import asyncio
 
 from rag.ingest import ingest
-from backend.rag.retriever import retrieve_context
+from rag.retriever import retrieve_context
 from llm.gemini import ask_gemini
 from rag.prompt import build_prompt
 from api.api import api_router
-app = FastAPI()
 
+app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],  
+    allow_origins=["http://localhost:5173"],
     allow_credentials=True,
     allow_methods=["GET", "POST"],
     allow_headers=["*"],
@@ -22,6 +20,8 @@ app.add_middleware(
 app.include_router(api_router)
 
 
+# uvicorn main:app --reload
+
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000) 
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
