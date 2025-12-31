@@ -1,10 +1,5 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
-from rag.ingest import ingest
-from rag.retriever import retrieve_context
-from llm.gemini import ask_gemini
-from rag.prompt import build_prompt
 from api.api import api_router
 
 app = FastAPI()

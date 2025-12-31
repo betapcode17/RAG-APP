@@ -17,4 +17,3 @@ class ChatResponse(BaseModel):
 
 class ChatAskRequest(BaseModel):
     question: str
-    knowledge_base_id: Optional[int] = None

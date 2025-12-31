@@ -7,11 +7,12 @@ from llm.gemini import ask_gemini
 from rag.prompt import build_prompt
 from rag.retriever import retrieve_context
 from core.database import get_db
-from models import Chat, Message  
+from models import Chat, Message  ,Document
 from schemas.chat import ChatCreate, ChatResponse, ChatAskRequest
 
 router = APIRouter(prefix="/chats", tags=["Chats"]) 
 
+# POST - CREATE CHAT
 @router.post("/", response_model=ChatResponse)
 def create_chat(
     payload: ChatCreate,
@@ -24,6 +25,10 @@ def create_chat(
     db.refresh(chat)
     return chat
 
+
+
+
+# GET - ALL CHAT
 @router.get("/", response_model=List[ChatResponse])
 def list_chats(
     db: Session = Depends(get_db),
@@ -31,6 +36,8 @@ def list_chats(
 ):
     return db.query(Chat).filter(Chat.user_id == user_id).all()  
 
+
+# GET DETAIL CHAT
 @router.get("/{chat_id}", response_model=ChatResponse)
 def get_chat(
     chat_id: int,
@@ -42,39 +49,73 @@ def get_chat(
         raise HTTPException(status_code=404, detail="Chat not found")
     return chat
 
-@router.post("/{chat_id}/ask", response_model=dict) 
-def ask_chat(
+
+@router.post("/{chat_id}/ask", response_model=dict)
+async def ask_chat(
     chat_id: int,
+    knowledge_base_id: int,
+    document_id: int,
     payload: ChatAskRequest,
     db: Session = Depends(get_db),
     user_id: int = 1
 ):
-    chat = db.query(Chat).options(joinedload(Chat.knowledge_bases)).filter(
-        Chat.id == chat_id, Chat.user_id == user_id
+    # 1️ Check chat
+    chat = db.query(Chat).filter(
+        Chat.id == chat_id,
+        Chat.user_id == user_id
     ).first()
+
     if not chat:
-        raise HTTPException(status_code=404, detail="Chat not found")
-    
+        raise HTTPException(404, "Chat not found")
+
+    # 2️ Check document thuộc knowledge base
+    document = db.query(Document).filter(
+        Document.id == document_id,
+        Document.knowledge_base_id == knowledge_base_id
+    ).first()
+
+    if not document:
+        raise HTTPException(404, "Document not found in this knowledge base")
+
+    # 3️ Validate question
     question = payload.question.strip()
     if not question:
-        raise HTTPException(status_code=400, detail="Question is required")
-    
-    # Lưu user message
-    user_message = Message(chat_id=chat_id, role="user", content=question)
-    db.add(user_message)
+        raise HTTPException(400, "Question is required")
+
+    # 4️ Lưu user message
+    user_msg = Message(
+        chat_id=chat.id,
+        role="user",
+        content=question
+    )
+    db.add(user_msg)
     db.commit()
-    db.refresh(user_message)
 
-    # Knowledge base IDs
-    knowledge_base_ids = [payload.knowledge_base_id] if payload.knowledge_base_id else [kb.id for kb in chat.knowledge_bases]
+    # 5️ Retrieve context (ASYNC)
+    context = await retrieve_context(
+        question=question,
+        knowledge_base_id=knowledge_base_id,
+        document_id=document.id
+    )
 
-    context = retrieve_context(question=question, knowledge_base_ids=knowledge_base_ids)
-    answer = "Không tìm thấy thông tin liên quan trong tài liệu." if not context else ask_gemini(build_prompt(context, question))
+    # 6️ Generate answer (ASYNC)
+    if not context:
+        answer = "Không tìm thấy thông tin liên quan trong tài liệu."
+    else:
+        prompt = build_prompt(context, question)
+        answer = await ask_gemini(prompt)
 
-    # Lưu assistant message
-    assistant_message = Message(chat_id=chat_id, role="assistant", content=answer)
-    db.add(assistant_message)
+    # 7️ Lưu assistant message
+    assistant_msg = Message(
+        chat_id=chat.id,
+        role="assistant",
+        content=answer
+    )
+    db.add(assistant_msg)
     db.commit()
-    db.refresh(assistant_message)
 
-    return {"question": question, "answer": answer}
+    return {
+        "question": question,
+        "answer": answer,
+        "document_id": document.id
+    }

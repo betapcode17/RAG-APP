@@ -1,3 +1,4 @@
+import asyncio
 import google.generativeai as genai
 from dotenv import load_dotenv
 import os
@@ -7,11 +8,38 @@ load_dotenv()
 
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
-async def ask_gemini(prompt):
-    model = genai.GenerativeModel("gemini-2.5-flash") 
-    response = await model.generate_content(prompt)
-    return response.text
 
+MODEL_NAME = "gemini-2.5-flash"
+
+
+
+async def ask_gemini(prompt: str, temperature: float = 0.7, max_output_tokens: int = 1024) -> str:
+    """
+    Async wrapper cho Gemini generate_content.
+    Wrap sync call bằng asyncio.to_thread để tránh blocking.
+    """
+    try:
+      
+        model = genai.GenerativeModel(MODEL_NAME)
+        
+   
+        response = await asyncio.to_thread(
+            model.generate_content,
+            prompt,
+            generation_config={
+                "temperature": temperature,
+                "max_output_tokens": max_output_tokens,
+            }
+        )
+        
+        
+        if response.text:
+            return response.text.strip()
+        else:
+            raise ValueError("Gemini response is empty")
+    
+    except Exception as e:
+        raise RuntimeError(f"Gemini generation failed: {str(e)}")
 
 async def list_models():
     try:

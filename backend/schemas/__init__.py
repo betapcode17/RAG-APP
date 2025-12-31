@@ -4,7 +4,6 @@ from .knowledge_base import KnowledgeBaseCreate, KnowledgeBaseResponse
 from .document import DocumentCreate, DocumentResponse
 from .message import MessageCreate, MessageResponse
 from .user import UserCreate, UserResponse
-from .rag import PreviewRequest
 
 __all__ = [
     "ChatCreate", "ChatResponse", "ChatAskRequest",
@@ -12,5 +11,4 @@ __all__ = [
     "DocumentCreate", "DocumentResponse",
     "MessageCreate", "MessageResponse",
     "UserCreate", "UserResponse",
-    "PreviewRequest"
 ]

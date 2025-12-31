@@ -1,36 +1,51 @@
-
+import os
+import asyncio
 import google.generativeai as genai
 from dotenv import load_dotenv
-import os
-import asyncio  
+import logging  # Thêm để log
 
+# Setup logging (optional, để debug)
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
+# Load env
 load_dotenv()
 
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+if not GEMINI_API_KEY:
+    raise RuntimeError("Missing GEMINI_API_KEY")
 
-gemini_api_key = os.getenv("GEMINI_API_KEY")
-if not gemini_api_key:
-    raise ValueError(" Thiếu GEMINI_API_KEY trong file .env!")
+genai.configure(api_key=GEMINI_API_KEY)
+
+EMBEDDING_MODEL = "models/text-embedding-004"
+EMBEDDING_DIM = 768
 
 
-genai.configure(api_key=gemini_api_key)
-
-async def embed(text):
-    """
-    Tạo embedding vector cho text bằng Gemini (async wrapper cho sync SDK).
-    - Model: text-embedding-004 (stable, 768 dims, tốt cho RAG).
-    - Input: text (str).
-    - Output: list[float] (embedding vector).
-    """
-    try:
+async def embed(text: str) -> list[float]:
+    if not text or not text.strip():
+        raise ValueError("Input text cannot be empty")
     
+    try:
         result = await asyncio.to_thread(
             genai.embed_content,
-            model="models/text-embedding-004",
+            model=EMBEDDING_MODEL,
             content=text,
-            task_type="retrieval_document" 
+            task_type="retrieval_document",
+          
         )
-        return result['embedding'] 
+
+        embedding = result["embedding"]
+
+        actual_dim = len(embedding)
+        logger.info(f"Generated embedding with {actual_dim} dimensions for text length {len(text)}")  
+
+        if actual_dim != EMBEDDING_DIM:
+            raise ValueError(
+                f"Embedding dim mismatch: {actual_dim} != {EMBEDDING_DIM} (expected from {EMBEDDING_MODEL})"
+            )
+
+        return embedding
+
     except Exception as e:
-        print(f" Lỗi embedding: {e}")
-        raise ValueError(f"Không thể embed text: {text[:50]}...")  
+        logger.error(f"Gemini embedding failed for text '{text[:50]}...': {str(e)}")  
+        raise RuntimeError(f"Gemini embedding failed: {str(e)}")

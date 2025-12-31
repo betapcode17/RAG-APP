@@ -1,11 +1,10 @@
-# backend/routers/knowledge_bases.py
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List
 
 from core.database import get_db
-from models import KnowledgeBase  # Từ models/__init__.py (đã sửa trước)
-from schemas import KnowledgeBaseCreate, KnowledgeBaseResponse  # SỬA: Batch import từ __init__.py
+from models import KnowledgeBase 
+from schemas import KnowledgeBaseCreate, KnowledgeBaseResponse 
 
 router = APIRouter(prefix="/knowledge-bases", tags=["Knowledge Bases"])
 

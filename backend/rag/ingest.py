@@ -1,51 +1,87 @@
 import os
-from utils.chunk import chunk_text
-from llm.embedding import embed  
+import uuid
+from utils.file_reader import read_file_content
+from utils.semantic_chunk import semantic_chunk_text
+from llm.embedding import embed
 from vector.chroma import get_collection
 
-async def ingest():
-    try:
-        docs_path = "data/docs.txt"
-        if not os.path.exists(docs_path):
-            raise FileNotFoundError("File data/docs.txt không tồn tại!")
-        
-        with open(docs_path, "r", encoding="utf-8") as f:
-            text = f.read()
-        
-        chunks = chunk_text(text)
 
-        if not chunks:
-            raise ValueError("Không tạo được chunks từ docs.txt!")
+async def ingest_document(
+    *,
+    file_path: str,
+    user_id: int,
+    knowledge_base_id: int,
+    document_id: int,
+):
 
-        collection = await get_collection()
+    if not os.path.exists(file_path):
+        raise FileNotFoundError(f"File not found: {file_path}")
 
-        ids = [f"chunk_{i}" for i in range(len(chunks))]
-        documents = chunks
-        embeddings = []
-        metadatas = [{"source": "docs.txt", "chunk_id": i} for i in range(len(chunks))]
+    text = read_file_content(file_path)
 
-        print(f"🔄 Đang embed {len(chunks)} chunks...") 
+    if not text or not text.strip():
+        raise ValueError("Document is empty or unreadable")
 
-       
-        for i, chunk in enumerate(chunks):
-            try:
-                embedding = await embed(chunk)
-                embeddings.append(embedding)
-                print(f" Embed chunk {i+1}/{len(chunks)}")
-            except Exception as e:
-                print(f" Lỗi embed chunk {i+1}: {e}")
-                raise  #
+    chunks = semantic_chunk_text(
+        text=text,
+        max_length=800,
+        min_length=200,
+    )
 
-       
-        collection.add(
-            embeddings=embeddings,
-            documents=documents,
-            metadatas=metadatas,
-            ids=ids
-        )
+    if not chunks:
+        raise ValueError("Chunking failed – no chunks generated")
 
-        count = collection.count()
-        print(f" Ingest hoàn tất: {count} chunks vào ChromaDB")
-    except Exception as error:
-        print(f" Lỗi ingest: {error}")
-        raise 
+    collection = await get_collection()
+
+    collection.delete(
+        where={
+            "$and": [
+                {"document_id": document_id},
+                {"knowledge_base_id": knowledge_base_id},
+                {"user_id": user_id},
+            ]
+        }
+    )
+
+    ids = []
+    metadatas = []
+    embeddings = []
+
+    for idx, chunk in enumerate(chunks):
+        ids.append(f"{document_id}_{idx}_{uuid.uuid4().hex}")
+
+        metadatas.append({
+            "user_id": user_id,
+            "knowledge_base_id": knowledge_base_id,
+            "document_id": document_id,
+            "chunk_index": idx,
+            "source": os.path.basename(file_path),
+        })
+
+        embedding = await embed(chunk)
+        embeddings.append(embedding)
+
+    collection.add(
+        ids=ids,
+        documents=chunks,
+        embeddings=embeddings,
+        metadatas=metadatas,
+    )
+
+    print("Total vectors:", collection.count())
+    
+  
+    test_embedding = await embed("test") 
+    results = collection.query(
+        query_embeddings=[test_embedding], 
+        n_results=1
+    )
+
+    print(results)
+
+    return {
+        "status": "success",
+        "document_id": document_id,
+        "chunks": len(chunks),
+        "collection_count": collection.count(),
+    }
