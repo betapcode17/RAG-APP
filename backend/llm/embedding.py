@@ -1,24 +1,21 @@
 import os
 import asyncio
-import google.generativeai as genai
 from dotenv import load_dotenv
-import logging  # Thêm để log
+import logging
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
+from core import config  
+from services.embedding.embedding_factory import EmbeddingsFactory
 
-# Setup logging (optional, để debug)
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Load env
+
 load_dotenv()
 
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-if not GEMINI_API_KEY:
-    raise RuntimeError("Missing GEMINI_API_KEY")
-
-genai.configure(api_key=GEMINI_API_KEY)
-
-EMBEDDING_MODEL = "models/text-embedding-004"
 EMBEDDING_DIM = 768
+
+embeddings_model = EmbeddingsFactory.create()
 
 
 async def embed(text: str) -> list[float]:
@@ -26,25 +23,20 @@ async def embed(text: str) -> list[float]:
         raise ValueError("Input text cannot be empty")
     
     try:
-        result = await asyncio.to_thread(
-            genai.embed_content,
-            model=EMBEDDING_MODEL,
-            content=text,
-            task_type="retrieval_document",
-          
+       embedding = await asyncio.to_thread(
+            embeddings_model.embed_query,  
+            text
         )
+       
+       actual_dim = len(embedding)
+       logger.info(f"Generated embedding with {actual_dim} dimensions for text length {len(text)}")  
 
-        embedding = result["embedding"]
-
-        actual_dim = len(embedding)
-        logger.info(f"Generated embedding with {actual_dim} dimensions for text length {len(text)}")  
-
-        if actual_dim != EMBEDDING_DIM:
+       if actual_dim != EMBEDDING_DIM:
             raise ValueError(
-                f"Embedding dim mismatch: {actual_dim} != {EMBEDDING_DIM} (expected from {EMBEDDING_MODEL})"
+                f"Embedding dim mismatch: {actual_dim} != {EMBEDDING_DIM} "
             )
 
-        return embedding
+       return embedding
 
     except Exception as e:
         logger.error(f"Gemini embedding failed for text '{text[:50]}...': {str(e)}")  
