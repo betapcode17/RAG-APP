@@ -38,7 +38,7 @@ import {
 } from "../ui/table";
 
 import { Documents } from "../../data/Document";
-import type { Document } from "../../types/documents";
+import type { Document } from "../../types/document";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const columns: ColumnDef<Document>[] = [

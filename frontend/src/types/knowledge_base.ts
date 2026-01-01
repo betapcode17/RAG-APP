@@ -1,6 +1,7 @@
-export interface Chat {
+export interface KnowledgeBase {
   id: number;
-  title: string;
+  name: string;
+  description: string;
   user_id: number;
   created_at: Date;
   updated_at: Date;

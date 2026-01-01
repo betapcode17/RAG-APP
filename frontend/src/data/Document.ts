@@ -1,5 +1,5 @@
 // data/Document
-import type { Document } from "../types/documents";
+import type { Document } from "../types/document";
 
 export const Documents: Document[] = [
   {

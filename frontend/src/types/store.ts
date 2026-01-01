@@ -1,4 +1,4 @@
-import type { ChatMessage } from "../types/chat";
+import type { ChatMessage } from "./chat";
 export interface chatState {
   message: ChatMessage[];
   isTyping: boolean;

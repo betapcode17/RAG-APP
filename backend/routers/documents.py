@@ -73,22 +73,22 @@ async def create_document(
     return doc
 
 @router.get("/", response_model=List[DocumentResponse])
-def list_uploads(
+def list_document(
+    knowledge_base_id : int,
     db: Session = Depends(get_db),
-    user_id: int = 1  # Demo
 ):
    
-    return db.query(Document).join(KnowledgeBase).filter(KnowledgeBase.user_id == user_id).order_by(Document.created_at.desc()).all()
+    return db.query(Document).join(KnowledgeBase).filter(KnowledgeBase.id == knowledge_base_id).order_by(Document.created_at.desc()).all()
 
 @router.delete("/documents/{document_id}")
 def delete_document(
     document_id: int,
+    knowledge_base_id : int,
     db: Session = Depends(get_db),
-    user_id: int = 1
 ):
     doc = db.query(Document).filter(
         Document.id == document_id,
-        Document.user_id == user_id
+        Document.knowledge_base_id == knowledge_base_id
     ).first()
 
     if not doc:
