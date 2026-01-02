@@ -166,11 +166,12 @@ curl -X POST http://localhost:3000/chat \
 
 LightMode
 
-<img width="1883" height="902" alt="image" src="https://github.com/user-attachments/assets/dfb10ecd-de27-4e3c-aad6-a33c89195a68" />
+<img width="1885" height="902" alt="image" src="https://github.com/user-attachments/assets/c1fc220d-7f38-4078-9a18-2476d4fe15fb" />
+
 
 DarkMode
 
-<img width="1882" height="901" alt="image" src="https://github.com/user-attachments/assets/e6212b3b-88b5-4a19-a41b-957b7e8bfbe3" />
+<img width="1871" height="900" alt="image" src="https://github.com/user-attachments/assets/e425ed89-af02-4c56-ab40-64248a1e94cd" />
 
 3. Chat
 
@@ -180,9 +181,11 @@ DarkMode
 
 <img width="1886" height="613" alt="image" src="https://github.com/user-attachments/assets/e4c68ea1-5502-4305-b301-f5f7b9a077b1" />
 
-5. <img width="1888" height="840" alt="image" src="https://github.com/user-attachments/assets/9337f3e8-163f-4a22-ae2b-4890548d48c3" />
+5.
 
-6. Dashboard
+<img width="1888" height="840" alt="image" src="https://github.com/user-attachments/assets/9337f3e8-163f-4a22-ae2b-4890548d48c3" />
+
+7. Dashboard
 
 <img width="1895" height="896" alt="image" src="https://github.com/user-attachments/assets/683715d6-c761-4a4c-a5e1-d24e6b2d08cc" /> <img width="1872" height="894" alt="image" src="https://github.com/user-attachments/assets/c409ff63-d9f0-4612-858e-60644547f0ae" />
 
