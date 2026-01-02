@@ -1,6 +1,6 @@
 "use client";
 
-import { useLocation } from "react-router-dom";
+import { useLocation, NavLink, useNavigate } from "react-router-dom";
 import {
   Sidebar,
   SidebarContent,
@@ -10,13 +10,18 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
   SidebarFooter,
-} from "../components/ui/sidebar";
+} from "../ui/sidebar";
 
-import { sidebarMenu } from "../config/sidebar-menu";
-import { NavLink } from "react-router-dom";
+import { sidebarMenu } from "../../config/sidebar-menu";
+import { useChats } from "../../hooks/chat/useChats";
+import ChatItem from "../sidebar/ChatItem";
 
 export default function AppSidebar() {
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const user_id = 1;
+  const { chats, activeChatId, selectChat } = useChats(user_id);
 
   return (
     <Sidebar collapsible="icon">
@@ -48,6 +53,24 @@ export default function AppSidebar() {
             </SidebarMenu>
           </SidebarGroup>
         ))}
+
+        <SidebarGroup>
+          <SidebarGroupLabel>Chats</SidebarGroupLabel>
+
+          <div className="px-2 space-y-1">
+            {chats.map((chat) => (
+              <ChatItem
+                key={chat.id}
+                chat={chat}
+                active={chat.id === activeChatId}
+                onSelect={(chat) => {
+                  selectChat(chat);
+                  navigate(`/chat/${chat.id}`);
+                }}
+              />
+            ))}
+          </div>
+        </SidebarGroup>
       </SidebarContent>
 
       <SidebarFooter className="text-xs text-muted-foreground px-2">

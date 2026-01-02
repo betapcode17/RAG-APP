@@ -4,13 +4,14 @@ import KnowledgeBaseLayout from "../layout/KnowledgeBaseLayout";
 import DashboardLayout from "../layout/DashboardLayout";
 import { AppLayout } from "../layout/AppLayout";
 
-const AppRoutes = () => {
+export const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/chat" />} />
 
       <Route element={<AppLayout />}>
         <Route path="/chat" element={<ChatLayout />} />
+        <Route path="/chat/:chatId" element={<ChatLayout />} />
         <Route path="/knowledge" element={<KnowledgeBaseLayout />} />
         <Route path="/dashboard" element={<DashboardLayout />} />
       </Route>

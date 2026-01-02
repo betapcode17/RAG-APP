@@ -30,3 +30,26 @@ def list_kb(
     user_id: int = 1  # Demo
 ):
     return db.query(KnowledgeBase).filter(KnowledgeBase.user_id == user_id).all()  # Filter user
+
+
+
+
+@router.get("/{kb_id}", response_model=KnowledgeBaseResponse)
+def get_detail_kb(
+    kb_id: int,
+    db: Session = Depends(get_db),
+    user_id: int = 1
+):
+    kb = (
+        db.query(KnowledgeBase)
+        .filter(
+            KnowledgeBase.id == kb_id,
+            KnowledgeBase.user_id == user_id
+        )
+        .first()
+    )
+
+    if not kb:
+        raise HTTPException(status_code=404, detail="Knowledge base not found")
+
+    return kb

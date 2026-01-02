@@ -2,19 +2,22 @@ import api from "../lib/api";
 import type { Chat } from "../types/chat";
 
 export const ChatApi = {
-  getChats: async (user_id: number): Promise<Chat[]> => {
-    const res = await api.get("/chat", { params: user_id });
+  getChats: async (user_id: number) => {
+    const res = await api.get("/chats/", {
+      params: { user_id },
+    });
     return res.data;
   },
+
   getDetailChats: async (chat_id: number, user_id: number) => {
-    const res = await api.get(`/chat/${chat_id}`, {
+    const res = await api.get(`/chats/${chat_id}`, {
       params: { user_id },
     });
     return res.data;
   },
 
   createChat: async (user_id: number): Promise<Chat> => {
-    const res = await api.post("/chat", null, {
+    const res = await api.post("/chats", null, {
       params: { user_id },
     });
     return res.data;
@@ -28,7 +31,7 @@ export const ChatApi = {
     question: string
   ) => {
     const res = await api.post(
-      `/chat/${chat_id}/ask`,
+      `/chats/${chat_id}/ask`,
       { question },
       {
         params: {

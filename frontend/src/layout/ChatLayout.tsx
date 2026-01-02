@@ -1,4 +1,4 @@
-import ChatInput from "../components/chat/ChatInput";
+import ChatInput from "../components/chat/chatInput/ChatInput";
 import { ChatView } from "../components/chat/ChatView";
 
 export const ChatLayout = () => {
@@ -8,9 +8,7 @@ export const ChatLayout = () => {
         <ChatView />
       </div>
 
-      <div className="border-t bg-background">
-        <ChatInput />
-      </div>
+      <ChatInput />
     </div>
   );
 };

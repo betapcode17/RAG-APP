@@ -44,10 +44,17 @@ def get_chat(
     db: Session = Depends(get_db),
     user_id: int = 1  # Demo
 ):
-    chat = db.query(Chat).filter(Chat.id == chat_id, Chat.user_id == user_id).first()
+    chat = (
+        db.query(Chat)
+        .filter(Chat.id == chat_id, Chat.user_id == user_id)
+        .first()
+    )
+
     if not chat:
         raise HTTPException(status_code=404, detail="Chat not found")
+
     return chat
+
 
 
 @router.post("/{chat_id}/ask", response_model=dict)

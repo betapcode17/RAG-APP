@@ -1,18 +1,15 @@
 import { Button } from "../ui/button";
 import { BotMessageSquare, UserRound } from "lucide-react";
-import type { ChatMessage as Msg } from "../../types/chat";
-
+import type { Message } from "../../types/message";
 interface Props {
-  message: Msg;
+  message: Message;
 }
-
 const ChatMessage = ({ message }: Props) => {
   const isUser = message.role === "user";
 
   return (
     <div className={`flex flex-col ${isUser ? "items-end" : "items-start"}`}>
       <div className="flex gap-2 items-start">
-        {/* ===== BOT AVATAR ===== */}
         {!isUser && (
           <Button
             variant="outline"
@@ -23,7 +20,6 @@ const ChatMessage = ({ message }: Props) => {
           </Button>
         )}
 
-        {/* ===== MESSAGE BUBBLE ===== */}
         <div
           className={`rounded-xl px-4 py-3 max-w-md shadow
             ${"bg-muted text-foreground"}`}
@@ -31,7 +27,6 @@ const ChatMessage = ({ message }: Props) => {
           <p className="text-sm leading-relaxed">{message.content}</p>
         </div>
 
-        {/* ===== USER AVATAR ===== */}
         {isUser && (
           <Button
             variant="outline"

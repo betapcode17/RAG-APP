@@ -105,3 +105,31 @@ def delete_document(
     db.commit()
 
     return {"message": "Document & vectors deleted"}
+
+
+@router.get("/{document_id}", response_model=DocumentResponse)
+def get_detail_document(
+    document_id: int,
+    knowledge_base_id: int,
+    db: Session = Depends(get_db),
+    user_id: int = 1  # demo
+):
+   
+    kb = db.query(KnowledgeBase).filter(
+        KnowledgeBase.id == knowledge_base_id,
+        KnowledgeBase.user_id == user_id
+    ).first()
+
+    if not kb:
+        raise HTTPException(status_code=404, detail="Knowledge Base not found")
+
+    
+    doc = db.query(Document).filter(
+        Document.id == document_id,
+        Document.knowledge_base_id == knowledge_base_id
+    ).first()
+
+    if not doc:
+        raise HTTPException(status_code=404, detail="Document not found")
+
+    return doc
