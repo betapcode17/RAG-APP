@@ -10,21 +10,28 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
   SidebarFooter,
+  SidebarTrigger,
 } from "../ui/sidebar";
 
 import { sidebarMenu } from "../../config/sidebar-menu";
 import { useChats } from "../../hooks/chat/useChats";
 import ChatItem from "../sidebar/ChatItem";
+import { Atom } from "lucide-react";
 
 export default function AppSidebar() {
   const location = useLocation();
   const navigate = useNavigate();
 
   const user_id = 1;
-  const { chats, activeChatId, selectChat } = useChats(user_id);
+  const { chats, activeChatId } = useChats(user_id);
 
   return (
     <Sidebar collapsible="icon">
+      <div className="flex flex-row justify-between m-3 items-center">
+        <Atom className="h-5" />
+        <SidebarTrigger />
+      </div>
+
       <SidebarContent>
         {sidebarMenu.map((group) => (
           <SidebarGroup key={group.group}>
@@ -57,14 +64,13 @@ export default function AppSidebar() {
         <SidebarGroup>
           <SidebarGroupLabel>Chats</SidebarGroupLabel>
 
-          <div className="px-2 space-y-1">
+          <div className=" space-y-1">
             {chats.map((chat) => (
               <ChatItem
                 key={chat.id}
                 chat={chat}
                 active={chat.id === activeChatId}
                 onSelect={(chat) => {
-                  selectChat(chat);
                   navigate(`/chat/${chat.id}`);
                 }}
               />

@@ -1,38 +1,34 @@
-import { useEffect, useState } from "react";
-import type { Chat } from "../../types/chat";
+// hooks/chat/useChats.ts
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { ChatApi } from "../../api/chat.api";
+import { useChatStore } from "../../store/useChatStore";
+import type { Chat } from "../../types/chat";
+
 export const useChats = (user_id: number) => {
-  const [chats, setChats] = useState<Chat[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [activeChatId, setActiveChatId] = useState<number | null>(null);
-  const fetchChats = async () => {
-    setLoading(true);
-    try {
-      const data = await ChatApi.getChats(user_id);
-      setChats(data);
-    } finally {
-      setLoading(false);
-    }
-  };
-  const selectChat = (chat: Chat) => {
-    setActiveChatId(chat.id);
-  };
-  const createChat = async () => {
-    const newChat = await ChatApi.createChat(user_id);
-    setChats((prev) => [newChat, ...prev]);
-    return newChat;
-  };
+  const { chatId } = useParams<{ chatId: string }>();
+
+  const { chats, setChats, addChat, activeChatId, setActiveChat } =
+    useChatStore();
 
   useEffect(() => {
-    fetchChats();
-  }, [user_id]);
+    if (chatId) {
+      setActiveChat(Number(chatId));
+    } else {
+      setActiveChat(null);
+    }
+  }, [chatId, setActiveChat]);
+
+  useEffect(() => {
+    ChatApi.getChats(user_id).then(setChats);
+  }, [user_id, setChats]);
 
   return {
-    activeChatId,
-    selectChat,
     chats,
-    loading,
-    createChat,
-    refetch: fetchChats,
+    activeChatId,
+
+    selectChat: (chat: Chat) => setActiveChat(chat.id),
+
+    addChatOptimistic: addChat,
   };
 };

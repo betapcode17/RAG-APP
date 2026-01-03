@@ -1,9 +1,4 @@
-import {
-  LayoutDashboard,
-  Database,
-  MessageSquare,
-  KeyRound,
-} from "lucide-react";
+import { LayoutDashboard, Database, SquarePen, KeyRound } from "lucide-react";
 
 export const sidebarMenu = [
   {
@@ -20,8 +15,8 @@ export const sidebarMenu = [
         href: "/knowledge",
       },
       {
-        title: "Chat",
-        icon: MessageSquare,
+        title: "New Chat",
+        icon: SquarePen,
         href: "/chat",
       },
     ],

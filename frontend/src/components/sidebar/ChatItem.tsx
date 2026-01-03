@@ -13,7 +13,8 @@ const ChatItem: React.FC<Props> = ({ chat, active, onSelect }) => {
     <div
       onClick={() => onSelect(chat)}
       className={clsx(
-        "px-3 py-2 rounded-md cursor-pointer text-sm transition-colors",
+        "group/chat-item flex items-center gap-2",
+        "px-2 py-2 rounded-md cursor-pointer text-sm transition-colors",
 
         "hover:bg-gray-200 dark:hover:bg-gray-700",
 
@@ -22,7 +23,17 @@ const ChatItem: React.FC<Props> = ({ chat, active, onSelect }) => {
           : "text-gray-800 dark:text-gray-200"
       )}
     >
-      {chat.title || "New Chat"}
+      <span
+        className="
+          truncate
+          transition-all duration-200
+          group-data-[collapsible=icon]:opacity-0
+          group-data-[collapsible=icon]:w-0
+          group-data-[collapsible=icon]:overflow-hidden
+        "
+      >
+        {chat.title || "New Chat"}
+      </span>
     </div>
   );
 };

@@ -1,30 +1,51 @@
-// chatStore
+// store/useChatStore.ts
 import { create } from "zustand";
-import type { chatState } from "../types/store";
+import type { UIMessage } from "../types/ui-message";
+import type { Chat } from "../types/chat";
 
-export const useChatStore = create<chatState>((set) => ({
-  message: [],
+interface ChatState {
+  messages: UIMessage[];
+  isTyping: boolean;
+
+  chats: Chat[];
+  activeChatId: number | null;
+
+  addMessage: (msg: UIMessage) => void;
+  setTyping: (value: boolean) => void;
+  resetMessages: () => void;
+
+  setChats: (chats: Chat[]) => void;
+  addChat: (chat: Chat) => void;
+  setActiveChat: (id: number | null) => void;
+}
+
+export const useChatStore = create<ChatState>((set) => ({
+  messages: [],
   isTyping: false,
-  addUserMessage: (text: string) =>
+
+  chats: [],
+  activeChatId: null,
+
+  addMessage: (msg) =>
     set((state) => ({
-      message: [
-        ...state.message,
-        { id: Date.now().toString(), role: "user", content: text },
-      ],
+      messages: [...state.messages, msg],
     })),
-  addAssistantMessage: (text: string) =>
+
+  setTyping: (value) => set({ isTyping: value }),
+
+  resetMessages: () => set({ messages: [], isTyping: false }),
+
+  setChats: (chats) => set({ chats }),
+
+  addChat: (chat) =>
     set((state) => ({
-      message: [
-        ...state.message,
-        { id: Date.now().toString(), role: "assistant", content: text },
-      ],
+      chats: [chat, ...state.chats],
     })),
-  updateAssistantMessage: (id: string, text: string) =>
-    set((state) => ({
-      message: state.message.map((msg) =>
-        msg.id === id ? { ...msg, content: text } : msg
-      ),
-    })),
-  clearChat: () => set({ message: [], isTyping: false }),
-  setTyping: (v: boolean) => set({ isTyping: v }),
+
+  setActiveChat: (id) =>
+    set({
+      activeChatId: id,
+      messages: [],
+      isTyping: false,
+    }),
 }));

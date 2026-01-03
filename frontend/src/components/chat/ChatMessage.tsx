@@ -1,8 +1,8 @@
 import { Button } from "../ui/button";
 import { BotMessageSquare, UserRound } from "lucide-react";
-import type { Message } from "../../types/message";
+import type { UIMessage } from "../../types/ui-message";
 interface Props {
-  message: Message;
+  message: UIMessage;
 }
 const ChatMessage = ({ message }: Props) => {
   const isUser = message.role === "user";

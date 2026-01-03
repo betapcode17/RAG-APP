@@ -16,10 +16,14 @@ export const ChatApi = {
     return res.data;
   },
 
-  createChat: async (user_id: number): Promise<Chat> => {
-    const res = await api.post("/chats", null, {
-      params: { user_id },
-    });
+  createChat: async (user_id: number, title: string): Promise<Chat> => {
+    const res = await api.post(
+      "/chats",
+      { title },
+      {
+        params: { user_id },
+      }
+    );
     return res.data;
   },
 
