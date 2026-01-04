@@ -48,4 +48,19 @@ export const ChatApi = {
 
     return res.data;
   },
+  renameChat: async (chat_id: number, user_id: number, title: string) => {
+    const res = await api.put(
+      `/chats/${chat_id}`,
+      { title },
+      { params: { user_id } }
+    );
+    return res.data;
+  },
+
+  deleteChat: async (chat_id: number, user_id: number) => {
+    const res = await api.delete(`/chats/${chat_id}`, {
+      params: { user_id },
+    });
+    return res.data;
+  },
 };

@@ -3,8 +3,8 @@ import { ChatApi } from "../../api/chat.api";
 
 interface AskPayload {
   chat_id: number;
-  knowledge_base_id: number;
-  document_id: number;
+  knowledge_base_id?: number;
+  document_id?: number;
   user_id: number;
   question: string;
 }
@@ -21,8 +21,8 @@ export const useAskChat = () => {
 
       const res = await ChatApi.ask(
         payload.chat_id,
-        payload.knowledge_base_id,
-        payload.document_id,
+        payload.knowledge_base_id!,
+        payload.document_id!,
         payload.user_id,
         payload.question
       );

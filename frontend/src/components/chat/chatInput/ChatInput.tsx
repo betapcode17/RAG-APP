@@ -3,13 +3,13 @@ import { ArrowUpFromLine } from "lucide-react";
 import { KBSelect } from "./KBSelect";
 import { DocumentSelect } from "./DocumentSelect";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { useDocuments } from "../../../hooks/document/useDocuments";
 import { useKnowledgeBases } from "../../../hooks/knowledge-base/useKnowledgeBases";
 import { useAskChat } from "../../../hooks/chat/useAskChat";
 import { useChatStore } from "../../../store/useChatStore";
 import { useCreateChat } from "../../../hooks/chat/useCreateChat";
-import { useNavigate } from "react-router-dom";
 import { useChats } from "../../../hooks/chat/useChats";
 
 interface ChatInputProps {
@@ -18,35 +18,37 @@ interface ChatInputProps {
 
 const ChatInput: React.FC<ChatInputProps> = ({ chatId }) => {
   const navigate = useNavigate();
+  const user_id = 1;
+
   const [kbId, setKbId] = useState<number>();
   const [docId, setDocId] = useState<number>();
   const [text, setText] = useState("");
+
   const { createChat } = useCreateChat();
-  const { addMessage, setTyping } = useChatStore();
-  const { setActiveChat } = useChatStore();
-  const user_id = 1;
+  const { ask, loading: asking } = useAskChat();
   const { addChatOptimistic } = useChats(user_id);
   const { knowledgeBases } = useKnowledgeBases(user_id);
   const { documents, loading } = useDocuments(kbId);
-  const { ask, loading: asking } = useAskChat();
 
-  const canSend = Boolean(kbId && docId && text.trim());
+  const { addMessage, setTyping, setActiveChat } = useChatStore();
+
+  const canSend = Boolean(text.trim()) && !asking;
 
   const handleSend = async () => {
-    if (!canSend || asking) return;
+    if (!canSend) return;
 
     let currentChatId = chatId;
 
+    // 🆕 Tạo chat nếu chưa có
     if (!currentChatId) {
       const chat = await createChat(user_id, text);
-
       addChatOptimistic(chat);
       setActiveChat(chat.id);
-
       navigate(`/chat/${chat.id}`, { replace: true });
       currentChatId = chat.id;
     }
 
+    // optimistic user message
     addMessage({
       role: "user",
       content: text,
@@ -58,10 +60,11 @@ const ChatInput: React.FC<ChatInputProps> = ({ chatId }) => {
     try {
       const res = await ask({
         chat_id: currentChatId!,
-        knowledge_base_id: kbId!,
-        document_id: docId!,
-        user_id,
         question: text,
+
+        user_id: user_id,
+        knowledge_base_id: kbId,
+        document_id: docId,
       });
 
       addMessage({
@@ -76,6 +79,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ chatId }) => {
   return (
     <div className="border-t bg-background px-3 py-2">
       <div className="flex items-center gap-2 rounded-xl border bg-muted/40 px-2 py-1.5">
+        {/* KB optional */}
         <KBSelect
           items={knowledgeBases}
           value={kbId}
@@ -87,6 +91,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ chatId }) => {
 
         <span className="text-muted-foreground text-xs">/</span>
 
+        {/* Document optional */}
         <DocumentSelect
           items={documents}
           value={docId}
@@ -97,25 +102,23 @@ const ChatInput: React.FC<ChatInputProps> = ({ chatId }) => {
         <input
           type="text"
           placeholder={
-            docId
-              ? "Ask a question about this document..."
-              : "Select a document first"
+            docId ? "Ask about this document..." : "Ask anything (ChatGPT mode)"
           }
           value={text}
           onChange={(e) => setText(e.target.value)}
-          disabled={!docId || asking}
+          disabled={asking}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               e.preventDefault();
               handleSend();
             }
           }}
-          className="flex-1 bg-background px-3 py-1.5 text-sm rounded-md border border-input focus:outline-none focus:ring-1 focus:ring-ring disabled:opacity-60"
+          className="flex-1 bg-background px-3 py-1.5 text-sm rounded-md border border-input focus:outline-none focus:ring-1 focus:ring-ring"
         />
 
         <Button
           size="icon"
-          disabled={!canSend || asking}
+          disabled={!canSend}
           onClick={handleSend}
           className="h-8 w-8 rounded-lg"
         >

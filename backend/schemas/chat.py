@@ -7,6 +7,10 @@ from schemas.message import MessageResponse
 class ChatCreate(BaseModel):
     title: str
 
+
+class ChatRenameRequest(BaseModel):
+    title: str
+
 class ChatResponse(BaseModel):
     id: int
     title: str
@@ -20,3 +24,5 @@ class ChatResponse(BaseModel):
 
 class ChatAskRequest(BaseModel):
     question: str
+    knowledge_base_id: Optional[int] = None
+    document_id: Optional[int] = None

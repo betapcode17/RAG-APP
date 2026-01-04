@@ -17,6 +17,8 @@ import { sidebarMenu } from "../../config/sidebar-menu";
 import { useChats } from "../../hooks/chat/useChats";
 import ChatItem from "../sidebar/ChatItem";
 import { Atom } from "lucide-react";
+import { useRenameChat } from "../../hooks/chat/useRenameChat";
+import { useDeleteChat } from "../../hooks/chat/useDeleteChat";
 
 export default function AppSidebar() {
   const location = useLocation();
@@ -24,7 +26,8 @@ export default function AppSidebar() {
 
   const user_id = 1;
   const { chats, activeChatId } = useChats(user_id);
-
+  const { renameChat } = useRenameChat();
+  const { deleteChat } = useDeleteChat();
   return (
     <Sidebar collapsible="icon">
       <div className="flex flex-row justify-between m-3 items-center">
@@ -67,11 +70,12 @@ export default function AppSidebar() {
           <div className=" space-y-1">
             {chats.map((chat) => (
               <ChatItem
-                key={chat.id}
                 chat={chat}
                 active={chat.id === activeChatId}
-                onSelect={(chat) => {
-                  navigate(`/chat/${chat.id}`);
+                onSelect={(chat) => navigate(`/chat/${chat.id}`)}
+                onRename={(chatId, title) => renameChat(chatId, user_id, title)}
+                onDelete={(chat) => {
+                  if (confirm("Xóa chat này?")) deleteChat(chat.id, user_id);
                 }}
               />
             ))}
