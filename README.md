@@ -49,7 +49,8 @@ Trả answer
 
 
 
-<img width="1094" height="640" alt="image" src="https://github.com/user-attachments/assets/188b232e-b45c-498f-bebe-d55d6e08e8be" />
+<img width="694" height="321" alt="image" src="https://github.com/user-attachments/assets/cb854558-8033-4978-bbf2-ad8c41438edf" />
+
 
 ---
 
